@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Cat-fact POST</title>
+	<link href="style.css" type="text/css" rel="stylesheet">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div id="form-container">
+				<form id="registration-form" action="/postTweeterFact" method="post" enctype="multipart/form-data">
+					<label for="tweeterfact">Tweet : </label>
+					<input type="text" id="tweeterfact" name="tweeterfact"><br><br>
+					<input type="text" id="tweeterPublic" name="tweeterPublic">
+					<label for="tweeterPublic">Public</label><br><br>
+					<input type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+		<div th:if="${not #lists.isEmpty(tweeterToDisplay)}">
+			<h2>Counts List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Name</th>
+					<th>published?</th>
+					<th>Text</th>
+
+				</tr>
+				<tr th:each="count : ${tweeterToDisplay}">
+<!--					<div th:if="${String.valueOf(count.getPublish()) == 1}">-->
+						<td th:text="${count.getName()}"></td>
+						<td th:text="${count.getPublish()}"></td>
+
+					<td th:text="${count.getTweetText()}"></td>
+<!--					</div>-->
+				</tr>
+			</table>
+		</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
