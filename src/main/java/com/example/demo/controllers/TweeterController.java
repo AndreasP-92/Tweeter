@@ -14,7 +14,6 @@ import java.util.List;
 public class TweeterController {
     List<TweeterFact> listOfTweets = new ArrayList<>();
 
-
 //    TweeterFact tweeterToDisplay = new TweeterFact("Hello World", "Andreas");
 
 
@@ -30,10 +29,24 @@ public class TweeterController {
 
     @PostMapping("/postTweeterFact")
     public String postTweeterFact(WebRequest dataFromForm){
-        TweeterFact tweeterFromForm = new TweeterFact(dataFromForm.getParameter("tweeterfact"),dataFromForm.getParameter("tweeterPublic"), "Andreas");
+        String tweeterPublic = dataFromForm.getParameter("tweeterPublic");
+        int parsedTweeterPublic = 0;
+
+        if(Boolean.parseBoolean(tweeterPublic) == true) {
+            parsedTweeterPublic = 1;
+        }
+        TweeterFact tweeterFromForm = new TweeterFact(dataFromForm.getParameter("tweeterfact"),parsedTweeterPublic, "Andreas");
         listOfTweets.add(tweeterFromForm);
 //        tweeterToDisplay = tweeterFromForm;
         return "redirect:/";
+    }
+    @GetMapping("/privateTweets")
+    public String privateTweets(Model TweeterController){
+
+        TweeterController.addAttribute("tweeterToDisplay", listOfTweets);
+
+
+        return "privateTweets";
     }
 
 }

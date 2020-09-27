@@ -11,11 +11,12 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
+			<a href="/privateTweets">Private Tweets</a>
 			<div id="form-container">
 				<form id="registration-form" action="/postTweeterFact" method="post" enctype="multipart/form-data">
 					<label for="tweeterfact">Tweet : </label>
 					<input type="text" id="tweeterfact" name="tweeterfact"><br><br>
-					<input type="text" id="tweeterPublic" name="tweeterPublic">
+					<input type="radio" id="tweeterPublic" name="tweeterPublic" value="true">
 					<label for="tweeterPublic">Public</label><br><br>
 					<input type="submit" value="Submit">
 				</form>
@@ -28,15 +29,13 @@
 					<th>Name</th>
 					<th>published?</th>
 					<th>Text</th>
-
 				</tr>
 				<tr th:each="count : ${tweeterToDisplay}">
-<!--					<div th:if="${String.valueOf(count.getPublish()) == 1}">-->
-						<td th:text="${count.getName()}"></td>
-						<td th:text="${count.getPublish()}"></td>
-
-					<td th:text="${count.getTweetText()}"></td>
-<!--					</div>-->
+					<div th:if="${count.getPublish() == 1}">
+							<td th:text="${count.getName()}"></td>
+							<td th:text="${count.getPublish()}"></td>
+						<td th:text="${count.getTweetText()}"></td>
+					</div>
 				</tr>
 			</table>
 		</div>
